@@ -1,6 +1,6 @@
 category: Forensics & Malware Analysis
 commonfields:
-  id: Intezer v2
+  id: Intezer v2-kfir
   version: -1
 configuration:
   - display: API Key
@@ -22,8 +22,8 @@ configuration:
     required: false
     type: 8
 description: Malware detection and analysis based on code reuse
-display: Intezer v2
-name: Intezer v2
+display: Intezer v2-kfir
+name: Intezer v2-kfir
 script:
   commands:
     - name: intezer-analyze-by-hash
@@ -108,7 +108,7 @@ script:
       arguments:
         - default: false
           description: The analysis ID we want to get results for
-          isArray: true
+          isArray: false
           name: analysis_id
           required: false
           secret: false
@@ -175,7 +175,7 @@ script:
         - contextPath: Intezer.Analysis.ID
           description: Intezer analysis id
           type: string
-        - contextPath: Intezer.Analysis.SubAnalysesIDs
+        - contextPath: Intezer.Analysis.SubAnalyses
           description: List of all sub analyses of the give analysis
           type: Unknown
     - name: intezer-get-family-info
@@ -209,7 +209,7 @@ script:
           required: false
           secret: false
       deprecated: false
-      description: Get All code reuse report for an analysis. To get a sub analysis code-reuse you need to specify an analysis_id and a sub_analysis id!
+      description: Get All code reuse report for an analysis or sub analysis
       execution: false
       outputs:
         - contextPath: Intezer.Analysis.ID
@@ -221,13 +221,7 @@ script:
         - contextPath: Intezer.Analysis.CodeReuseFamilies
           description: List of the families appearing in the code reuse
           type: Unknown
-        - contextPath: Intezer.Analysis.SubAnalyses.CodeReuse
-          description: General Code Reuse of the analysis
-          type: Unknown
-        - contextPath: Intezer.Analysis.SubAnalyses.CodeReuseFamilies
-          description: List of the families appearing in the code reuse
-          type: Unknown
-        - contextPath: Intezer.Analysis.SubAnalyses.RootAnalysis
+        - contextPath: Intezer.Analysis.ComposedAnalysisID
           description: The Composed analysis id
           type: string
     - name: intezer-get-analysis-metadata
@@ -245,7 +239,7 @@ script:
           required: false
           secret: false
       deprecated: false
-      description: Get analysis metadata. To get a sub analysis metadata you need to specify an analysis_id and a sub_analysis id!
+      description: Get analysis metadata
       execution: false
       outputs:
         - contextPath: Intezer.Analysis.ID
@@ -254,10 +248,10 @@ script:
         - contextPath: Intezer.Analysis.Metadata
           description: The Analysis metadata
           type: Unknown
-        - contextPath: Intezer.Analysis.SubAnalyses.Metadata
-          description: A Sub Analysis metadata
-          type: Unknown
-  dockerimage: demisto/intezer:1.0.0.24037
+        - contextPath: Intezer.Analysis.ComposedAnalysisID
+          description: The Composed analysis id
+          type: string
+  dockerimage: kfirintezer/intezer:1.0.0.1624971689
   isfetch: false
   runonce: false
   script: '-'
