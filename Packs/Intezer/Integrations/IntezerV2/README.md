@@ -45,18 +45,7 @@ Checks file reputation of the given hash, supports SHA256, SHA1 and MD5
 
 #### Command Example
 ``` 
-!intezer-analyze-by-hash file_hash="<file hash>"
-```
-
-#### Context Example
-```
-{
-    "Intezer.Analysis": {
-        "Status": "Created", 
-        "type": "File", 
-        "ID": "59e2f081-45f3-4822-bf45-407670dcb4d7"
-    }
-}
+!intezer-analyze-by-hash file_hash="8cbf90aeab2c93b2819fcfd6262b2cdb"
 ```
 
 #### Human Readable Output
@@ -99,38 +88,11 @@ Checks file reputation of the given hash, supports SHA256, SHA1 and MD5 by looki
 intezer-get-latest-report file_hash="8cbf90aeab2c93b2819fcfd6262b2cdb"
 ```
 
-#### Context Example
-```
-{
-    "DBotScore": {
-        "Vendor": "Intezer", 
-        "Indicator": "<some sha>>", 
-        "Score": 0, 
-        "Type": "hash"
-    }, 
-    "File": {
-        "ExistsInIntezer": true, 
-        "SHA256": "<some sha256>", 
-        "Metadata": {
-            "analysis_id": "006c54ba-3159-43a0-98a0-1c5032145f47", 
-            "sub_verdict": "known_malicious", 
-            "analysis_url": "https://analyze.intezer.com/analyses/006c54ba-3159-43a0-98a0-1c5032145f47", 
-            "verdict": "malicious", 
-            "family_id": "0b13c0d4-7779-4c06-98fa-4d33ca98f8a9",
-            "family_name": "WannaCry",
-            "sha256": "<some sha256>",
-            "is_private": true, 
-            "analysis_time": "Wed, 19 Jun 2019 07:48:12 GMT"
-        }
-    }
-}
-```
-
 #### Human Readable Output
 ```
 Intezer File analysis result
 ----
-SHA256: some-sha256
+SHA256: bf293bda73c5b4c1ec66561ad20d7e2bc6692d051282d35ce8b7b7020c753467
 Verdict: malicious (known_malicious)
 Family: WannaCry
 
@@ -143,7 +105,7 @@ analysis_url	https://analyze.intezer.com/analyses/006c54ba-3159-43a0-98a0-1c5032
 family_id	0b13c0d4-7779-4c06-98fa-4d33ca98f8a9
 family_name	WannaCry
 is_private	false
-sha256          some-sha256
+sha256          bf293bda73c5b4c1ec66561ad20d7e2bc6692d051282d35ce8b7b7020c753467
 sub_verdict	known_malicious
 verdict	        malicious
 ```
@@ -176,17 +138,6 @@ Checks file reputation for uploaded file (up to 150MB)
 #### Command Example
 ``` 
 intezer-analyze-by-file file_entry_id=1188@6
-```
-
-#### Context Example
-```
-{
-    "Intezer.Analysis": {
-        "Status": "Created", 
-        "type": "File", 
-        "ID": "675515a1-62e9-4d55-880c-fd46a7963a56"
-    }
-}
 ```
 
 #### Human Readable Output
@@ -232,38 +183,11 @@ Check the analysis status and get analysis result, support file and endpoint ana
 intezer-get-analysis-result analysis_id="9e3acdc3-b7ea-412b-88ae-7103eebc9398"
 ```
 
-#### Context Example
-```
-{
-    "DBotScore": {
-        "Vendor": "Intezer", 
-        "Indicator": "<some sha>>", 
-        "Score": 0, 
-        "Type": "hash"
-    }, 
-    "File": {
-        "ExistsInIntezer": true, 
-        "SHA256": "<some sha256>", 
-        "Metadata": {
-            "analysis_id": "006c54ba-3159-43a0-98a0-1c5032145f47", 
-            "sub_verdict": "known_malicious", 
-            "analysis_url": "https://analyze.intezer.com/analyses/006c54ba-3159-43a0-98a0-1c5032145f47", 
-            "verdict": "malicious", 
-            "family_id": "0b13c0d4-7779-4c06-98fa-4d33ca98f8a9",
-            "family_name": "WannaCry",
-            "sha256": "<some sha256>",
-            "is_private": true, 
-            "analysis_time": "Wed, 19 Jun 2019 07:48:12 GMT"
-        }
-    }
-}
-```
-
 #### Human Readable Output
 ```
 Intezer File analysis result
 ----
-SHA256: some-sha256
+SHA256: bf293bda73c5b4c1ec66561ad20d7e2bc6692d051282d35ce8b7b7020c753467
 Verdict: malicious (known_malicious)
 Family: WannaCry
 
@@ -276,7 +200,7 @@ analysis_url	https://analyze.intezer.com/analyses/006c54ba-3159-43a0-98a0-1c5032
 family_id	0b13c0d4-7779-4c06-98fa-4d33ca98f8a9
 family_name	WannaCry
 is_private	false
-sha256          some-sha256
+sha256          bf293bda73c5b4c1ec66561ad20d7e2bc6692d051282d35ce8b7b7020c753467
 sub_verdict	known_malicious
 verdict	        malicious
 ```
@@ -303,28 +227,13 @@ Get a list of the analysis sub analyses
 | **Path** | **Type** | **Description** |
 | --- | --- | --- |
 | Intezer.Analysis.ID | string | Intezer analysis id | 
-| Intezer.Analysis.SubAnalysesIDs | Unknown | List of all sub analyses of the give analysis | 
+| Intezer.Analysis.SubAnalyses | Unknown | List of all sub analyses of the give analysis | 
 
 
 #### Command Example
 ```
 intezer-get-sub-analyses analysis_id=006c54ba-3159-43a0-98a0-1c5032145f47
 ```
-
-#### Context Example
-```
-{
-    "Intezer.Analysis": {
-        "Status": "Done", 
-        "type": "File", 
-        "ID": "675515a1-62e9-4d55-880c-fd46a7963a56",
-        "SubAnalysesIDs": [
-            "2bf5baa9-6964-4171-b060-5e3d8de8741f"
-        ]
-    }
-}
-```
-
 
 #### Human Readable Output
 ```
@@ -366,18 +275,6 @@ Get family information from Intezer Analyze
 intezer-get-family-info family_id=006c54ba-3159-43a0-98a0-1c5032145f47
 ```
 
-
-#### Context Example
-```
-{
-    "Intezer.Family": {
-        "ID": "e710e4b3-3dd1-40ff-be74-9d8a95466ae4", 
-        "Type": "malware", 
-        "Name": "CobaltStrike"
-    }
-}
-```
-
 #### Human Readable Output
 ```
 Family Info
@@ -412,12 +309,10 @@ and got the sub analysis `456`, you need to specify both in the command
 
 | **Path** | **Type** | **Description** |
 | --- | --- | --- |
-| Intezer.Analysis.ID | string | The composed analysis ID |
+| Intezer.Analysis.ID | string | The composed analysis ID | 
 | Intezer.Analysis.CodeReuse | Unknown | General Code Reuse of the analysis | 
 | Intezer.Analysis.CodeReuseFamilies | Unknown | List of the families appearing in the code reuse | 
-| Intezer.Analysis.SubAnalyses.CodeReuse | Unknown | General Code Reuse of the analysis | 
-| Intezer.Analysis.SubAnalyses.CodeReuseFamilies | Unknown | List of the families appearing in the code reuse | 
-| Intezer.Analysis.SubAnalyses.RootAnalysis | string | The Composed analysis id | 
+| Intezer.Analysis.ComposedAnalysisID | string | The Composed analysis id | 
 
 
 #### Command Example
@@ -430,37 +325,6 @@ intezer-get-sub-analyses analysis_id=<Root analysis>
 
 # Use one of the results to get the sub analysis code reuse
 intezer-get-analysis-code-reuse analysis_id=<Root analysis> sub_analysis_id=<Sub Analysis Id>
-```
-
-#### Context Example
-```
-{
-    "Intezer.Analysis": {
-        "Status": "Done", 
-        "type": "File", 
-        "ID": "675515a1-62e9-4d55-880c-fd46a7963a56",
-        "SubAnalyses": [
-            {
-                "ID": "Some sub analysis id",
-                "RootAnalysis": "675515a1-62e9-4d55-880c-fd46a7963a56",
-                "CodeReuse": {
-                    "common_gene_count": 10,
-                    "gene_count": 100,
-                    "gene_type": "native_windows",
-                    "unique_gene_count": 50
-                },
-                "CodeReuseFamilies": [
-                    {
-                        "family_id": "5be245ca-793c-4991-9329-c42d6365a530",
-                        "family_name": "Microsoft Corporation",
-                        "family_type": "application",
-                        "reused_gene_count": 8
-                    }
-                ]
-            }
-        ]
-    }
-}
 ```
 
 #### Human Readable Output
@@ -519,7 +383,8 @@ and got the sub analysis `456`, you need to specify both in the command
 | --- | --- | --- |
 | Intezer.Analysis.ID | string | The composed analysis ID | 
 | Intezer.Analysis.Metadata | Unknown | The Analysis metadata | 
-| Intezer.Analysis.SubAnalyses.Metadata | Unknown | The Sub Analysis metadata | 
+| Intezer.Analysis.ComposedAnalysisID | string | The Composed analysis id | 
+
 
 #### Command Example
 ``` 
@@ -533,37 +398,6 @@ intezer-get-sub-analyses analysis_id=<Root analysis>
 intezer-get-analysis-metadata analysis_id=<Root analysis> sub_analysis_id=<Sub Analysis Id>
 ```
 
-#### Context Example
-```
-{
-    "Intezer.Analysis": {
-        "Status": "Done", 
-        "type": "File", 
-        "ID": "675515a1-62e9-4d55-880c-fd46a7963a56",
-        "SubAnalyses": [
-            {
-                "ID": "some sub analyses id",
-                "RootAnalysis": "675515a1-62e9-4d55-880c-fd46a7963a56",
-                "Metadata": {
-                    "sha1": "<sha1>",
-                    "sha256": "<sha256>",
-                    "md5": "<md5>",
-                    "product": "product name",
-                    "product_version": "5.4",
-                    "ssdeep": "<ssdeep>",
-                    "size_in_bytes": 15540,
-                    "architecture": "i386",
-                    "original_filename": "myfile.exe",
-                    "compilation_timestamp": "2019:07:26 18:23:19+00:00",
-                    "file_type": "pe",
-                    "company": "Microsoft"
-                }
-            }
-        ]
-    }
-}
-```
-
 #### Human Readable Output
 ```
 Analysis Metadata
@@ -573,13 +407,13 @@ architecture	        i386
 company	                Microsoft Corporation
 compilation_timestamp	2009:07:13 23:19:35+00:00
 file_type	        pe
-md5	                md5
+md5	                264b6a2d214586ed9b213d29b2262046
 original_filename	LODCTR.EXE
 product	                Microsoft® Windows® Operating System
 product_version	        6.1.7600.16385 ^^^
-sha1	                sha1
-sha256	                sha256
+sha1	                0e838068e42a7bfbd7d40a4743fae3cf733f7ac1
+sha256	                bf293bda73c5b4c1ec66561ad20d7e2bc6692d051282d35ce8b7b7020c7534^^^67
 size_in_bytes	        245760
-ssdeep	                ssdeep
+ssdeep	                3072:Rmrhd5J1eigWcR+uiUg6p4FLlG4tlL8z+mmCeHFZjoHEo3m:REd5vIZiZhLlG4AimmCo
 ```
 
