@@ -88,16 +88,9 @@ def _get_analysis_running_result(analysis_id: str = None, response: requests.Res
         outputs=context_json
     )
 
-    return CommandResults(
-        readable_output='Analysis is still in progress',
-        outputs=context_json
-    )
 
+''' COMMANDS '''
 
-def _get_missing_family_result(family_id: str) -> CommandResults:
-    return CommandResults(
-        readable_output=f'The Family {family_id} was not found on Intezer Analyze'
-    )
 
 def check_is_available(intezer_api: IntezerApi, args: dict) -> str:
     try:
@@ -140,17 +133,6 @@ def analyze_by_hash_command(intezer_api: IntezerApi, args: Dict[str, str]) -> Co
     except AnalysisIsAlreadyRunning as error:
         return _get_analysis_running_result(response=error.response)
 
-    try:
-        analysis.send()
-        analysis_id = analysis.analysis_id
-
-        context_json = {
-            'Intezer.Analysis(val.ID && val.ID == obj.ID)': {
-                'ID': analysis.analysis_id,
-                'Status': 'Created',
-                'type': 'File'
-            }
-        }
 
 def get_latest_result_command(intezer_api: IntezerApi, args: Dict[str, str]) -> CommandResults:
     file_hash = args.get('file_hash')
@@ -312,10 +294,6 @@ def get_analysis_code_reuse_command(intezer_api: IntezerApi, args: dict) -> Comm
         raw_response=sub_analysis.code_reuse
     )
 
-    if not sub_analysis_code_reuse:
-        return CommandResults(
-            readable_output='No code reuse for this analysis'
-        )
 
 def get_analysis_metadata_command(intezer_api: IntezerApi, args: dict) -> CommandResults:
     analysis_id = args.get('analysis_id')
@@ -361,9 +339,6 @@ def get_analysis_metadata_command(intezer_api: IntezerApi, args: dict) -> Comman
         raw_response=sub_analysis_metadata
     )
 
-def get_analysis_metadata_command(intezer_api: IntezerApi, args: Optional[dict]) -> CommandResults:
-    analysis_id = args.get('analysis_id')
-    sub_analysis_id = args.get('sub_analysis_id', 'root')
 
 def get_family_info_command(intezer_api: IntezerApi, args: dict) -> CommandResults:
     family_id = args.get('family_id')
